@@ -1,28 +1,23 @@
-const MainSection: React.FC = () => {
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls, Environment } from "@react-three/drei";
+import Avatar from "./Avatar";
+
+function MainSection() {
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>Mustufa</h1>
-      <p style={styles.subtitle}>
-        Frontend Developer • React • .NET
-      </p>
-    </div>
+    <Canvas camera={{ position: [0, 1.5, 4], fov: 50 }}>
+      <ambientLight intensity={0.8} />
+      <directionalLight position={[5, 5, 5]} intensity={1.2} />
+
+      <Avatar />
+
+      <OrbitControls
+        enableZoom={false}
+        minPolarAngle={Math.PI / 2.2}
+        maxPolarAngle={Math.PI / 1.8}
+      />
+      <Environment preset="city" />
+    </Canvas>
   );
-};
-
-
-const styles: Record<string, React.CSSProperties> = {
-  container: {
-    minHeight: "100vh",
-    padding: "80px",
-  },
-  title: {
-    fontSize: "3rem",
-    marginBottom: "10px",
-  },
-  subtitle: {
-    fontSize: "1.2rem",
-    opacity: 0.7,
-  },
-};
+}
 
 export default MainSection;

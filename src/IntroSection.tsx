@@ -7,11 +7,11 @@ type IntroSectionProps = {
 
 const words = [
   "Hello",
-  "Hola",
+  "નમસ્તે",
   "नमस्ते",
   "سلام",
+  "Hola",
   "Bonjour",
-  "નમસ્તે",
   "ਸਤ ਸ੍ਰੀ ਅਕਾਲ",
   "مرحبا",
   "こんにちは",
@@ -50,7 +50,7 @@ export default function IntroSection({ onFinish }: IntroSectionProps) {
     <div className="h-screen bg-neutral-900 flex items-center justify-center">
       <motion.h1
         animate={controls}
-        className="text-white text-6xl font-bold tracking-wider"
+        className="text-white text-4xl font-bold tracking-wider"
       >
         {words[index]}
       </motion.h1>
