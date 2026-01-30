@@ -47,7 +47,7 @@ export default function IntroSection({ onFinish }: IntroSectionProps) {
   }, [index, onFinish]);
 
   return (
-    <div className="h-screen bg-neutral-900 flex items-center justify-center">
+    <div className="inset-0 h-screen bg-neutral-900 flex items-center justify-center">
       <motion.h1
         animate={controls}
         className="text-white text-4xl font-bold tracking-wider"

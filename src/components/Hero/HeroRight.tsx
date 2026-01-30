@@ -3,10 +3,7 @@ export default function HeroRight() {
     <div className="text-slate-200 space-y-4 text-center md:text-left">
 
       <h1 className="
-        text-3xl
-        sm:text-4xl
-        md:text-5xl
-        lg:text-6xl
+        text-[clamp(1.8rem,4vw,3.5rem)]
         font-semibold
         tracking-tight
       ">
