@@ -1,5 +1,3 @@
-import { LayoutTextFlip } from "../ui/layout-text-flip";
-
 export default function HeroRight() {
   return (
     <div className="text-slate-200 space-y-4 text-center md:text-left">
@@ -14,12 +12,6 @@ export default function HeroRight() {
       ">
         Hey there, It's Mustufa
       </h1>
-
-      <LayoutTextFlip
-          text="Full-stack developer focused on "
-          words={["React", "ASP.Net core", "SQL server", "Node", "Tailwind CSS"]}
-        />
-
     </div>
   );
 }
