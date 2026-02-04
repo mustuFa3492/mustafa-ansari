@@ -7,7 +7,7 @@ export default function App() {
   const [showIntro, setShowIntro] = useState(true);
 
   return (
-    <div className="relative h-screen overflow-hidden">
+    <div className="relative h-screen bg-linear-to-b from-[#111318] to-[#0b0d10]">
       {/* Main Page */}
       {!showIntro &&
         <motion.div

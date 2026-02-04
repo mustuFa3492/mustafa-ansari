@@ -1,88 +1,90 @@
-import { useState, useRef, useEffect } from "react";
-import { AnimatePresence } from "framer-motion";
-import HeroSection from "./HeroSection";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence,motion } from "framer-motion";
+import Hero from "./HeroSection";
 import OtherSections from "./OtherSections";
 
-type Section = "hero" | "other";
-
-export default function MainSection() {
-  const [section, setSection] = useState<Section>("hero");
+export default function Home() {
+  const [showIntro, setShowIntro] = useState(true);
   const isAnimating = useRef(false);
   const touchStartY = useRef<number | null>(null);
 
-  const goTo = (next: Section) => {
-    if (isAnimating.current || section === next) return;
-
+  const finishIntro = () => {
+    if (isAnimating.current) return;
     isAnimating.current = true;
-    setSection(next);
+    setShowIntro(false);
 
-    // unlock after animation
     setTimeout(() => {
       isAnimating.current = false;
     }, 900);
   };
-  //scroll detection
-  useEffect(
-    () => {
-      const onWheel = (e: WheelEvent) => {
-        if (isAnimating.current) return;
 
-        if (e.deltaY > 50 && section === "hero") {
-          goTo("other");
-        }
+  // Scroll only for hero
+  useEffect(() => {
+    if (!showIntro) return;
 
-        if (e.deltaY < -50 && section === "other") {
-          goTo("hero");
-        }
-      };
+    const onWheel = (e: WheelEvent) => {
+      if (isAnimating.current) return;
+      if (e.deltaY > 50) finishIntro();
+    };
 
-      window.addEventListener("wheel", onWheel, { passive: true });
-      return () => window.removeEventListener("wheel", onWheel);
-    },
-    [section]
-  );
+    window.addEventListener("wheel", onWheel, { passive: true });
+    return () => window.removeEventListener("wheel", onWheel);
+  }, [showIntro]);
 
-  //swipe detection
-  useEffect(
-    () => {
-      const onTouchStart = (e: TouchEvent) => {
-        touchStartY.current = e.touches[0].clientY;
-      };
+  // Touch only for hero
+  useEffect(() => {
+    if (!showIntro) return;
 
-      const onTouchEnd = (e: TouchEvent) => {
-        if (touchStartY.current === null || isAnimating.current) return;
+    const onTouchStart = (e: TouchEvent) => {
+      touchStartY.current = e.touches[0].clientY;
+    };
 
-        const touchEndY = e.changedTouches[0].clientY;
-        const delta = touchStartY.current - touchEndY;
+    const onTouchEnd = (e: TouchEvent) => {
+      if (touchStartY.current === null || isAnimating.current) return;
 
-        // swipe up
-        if (delta > 60 && section === "hero") {
-          goTo("other");
-        }
+      const delta =
+        touchStartY.current - e.changedTouches[0].clientY;
 
-        // swipe down
-        if (delta < -60 && section === "other") {
-          goTo("hero");
-        }
+      if (delta > 60) finishIntro();
+      touchStartY.current = null;
+    };
 
-        touchStartY.current = null;
-      };
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchend", onTouchEnd);
 
-      window.addEventListener("touchstart", onTouchStart, { passive: true });
-      window.addEventListener("touchend", onTouchEnd, { passive: true });
-      return () => {
-        window.removeEventListener("touchstart", onTouchStart);
-        window.removeEventListener("touchend", onTouchEnd);
-      };
-    },
-    [section]
-  );
+    return () => {
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchend", onTouchEnd);
+    };
+  }, [showIntro]);
+
   return (
-    <div className="h-screen overflow-hidden">
-      <AnimatePresence mode="wait">
-        {section === "hero" && <HeroSection key="hero" />}
-        {section === "other" && <OtherSections key="other" />}
-      </AnimatePresence>
-    </div>
-  );
+  <>
+    <AnimatePresence mode="wait">
+      {showIntro ? (
+        <motion.div
+          key="hero"
+          className="h-screen"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -80 }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+        >
+          <Hero />
+        </motion.div>
+      ) : (
+        <motion.div
+          key="content"
+          initial={{ opacity: 0, y: 60 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -40 }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+        >
+          <OtherSections />
+        </motion.div>
+      )}
+    </AnimatePresence>
+  </>
+);
+
 }

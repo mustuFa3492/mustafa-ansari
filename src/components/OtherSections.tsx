@@ -1,6 +1,16 @@
 import About from "./About";
-export default function OtherSections(){
-  return <>
-  <About />
-  </>
+import Contact from "./Contact";
+
+export default function OtherSections() {
+  return (
+    <main className="flex flex-col">
+      <section id="about">
+        <About />
+      </section>
+
+      <section id="contact">
+        <Contact />
+      </section>
+    </main>
+  );
 }

@@ -22,7 +22,7 @@ export default function HeroRight() {
 
       <div className="pt-4">
         <span className="text-slate-500 text-sm">
-          {isTouch ? "Swipe" : "Scroll"} to explore {isTouch ? "↑" : "↓"}
+          {isTouch ? "Swipe" : "Scroll"} to explore ↓
         </span>
       </div>
     </div>
