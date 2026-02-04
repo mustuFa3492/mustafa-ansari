@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import IntroSection from "./IntroSection";
-import HeroSection from "./components/Hero/HeroSection";
+import MainSection from "./components/MainSection";
 
 export default function App() {
   const [showIntro, setShowIntro] = useState(true);
@@ -19,10 +19,9 @@ export default function App() {
           }}
           className="h-full absolute inset-0"
         >
-          <HeroSection />
+          <MainSection />
         </motion.div>}
 
-      {/* Intro overlay */}
       <AnimatePresence>
         {showIntro &&
           <motion.div
