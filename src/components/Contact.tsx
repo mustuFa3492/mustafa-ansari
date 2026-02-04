@@ -1,6 +1,6 @@
 import { useState,useEffect } from "react";
 import emailjs from "@emailjs/browser";
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 
 export default function Contact() {
   const [name, setName] = useState("");
