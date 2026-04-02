@@ -18,23 +18,30 @@ export default function Home() {
     }, 900);
   };
 
-  // Scroll only for hero
-  useEffect(() => {
-    if (!showIntro) return;
+  const backToHero = () => {
+    if (isAnimating.current) return;
+    isAnimating.current = true;
+    setShowIntro(true);
 
+    setTimeout(() => {
+      isAnimating.current = false;
+    }, 900);
+  };
+
+  // Scroll between hero and other sections
+  useEffect(() => {
     const onWheel = (e: WheelEvent) => {
       if (isAnimating.current) return;
-      if (e.deltaY > 50) finishIntro();
+      if (showIntro && e.deltaY > 50) finishIntro();
+      if (!showIntro && e.deltaY < -50) backToHero();
     };
 
     window.addEventListener("wheel", onWheel, { passive: true });
     return () => window.removeEventListener("wheel", onWheel);
   }, [showIntro]);
 
-  // Touch only for hero
+  // Touch scroll between hero and other sections
   useEffect(() => {
-    if (!showIntro) return;
-
     const onTouchStart = (e: TouchEvent) => {
       touchStartY.current = e.touches[0].clientY;
     };
@@ -42,10 +49,10 @@ export default function Home() {
     const onTouchEnd = (e: TouchEvent) => {
       if (touchStartY.current === null || isAnimating.current) return;
 
-      const delta =
-        touchStartY.current - e.changedTouches[0].clientY;
+      const delta = touchStartY.current - e.changedTouches[0].clientY;
 
-      if (delta > 60) finishIntro();
+      if (showIntro && delta > 60) finishIntro();
+      if (!showIntro && delta < -60) backToHero();
       touchStartY.current = null;
     };
 

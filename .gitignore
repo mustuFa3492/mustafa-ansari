@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+# .vs/mustafa-ansari.slnx/FileContentIndex/merges/416d5d07-b2c9-4b90-a7d3-fdab462f76e8.vsidx
+.vs/slnx.sqlite
+.vs/slnx.sqlite-journal
