@@ -7,6 +7,7 @@ export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
   const isAnimating = useRef(false);
   const touchStartY = useRef<number | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const finishIntro = () => {
     if (isAnimating.current) return;
@@ -33,7 +34,12 @@ export default function Home() {
     const onWheel = (e: WheelEvent) => {
       if (isAnimating.current) return;
       if (showIntro && e.deltaY > 50) finishIntro();
-      if (!showIntro && e.deltaY < -50) backToHero();
+      if (!showIntro && e.deltaY < -50) {
+        // Only allow scrolling back to hero if at the top of OtherSections
+        if (scrollContainerRef.current && scrollContainerRef.current.scrollTop === 0) {
+          backToHero();
+        }
+      }
     };
 
     window.addEventListener("wheel", onWheel, { passive: true });
@@ -52,7 +58,12 @@ export default function Home() {
       const delta = touchStartY.current - e.changedTouches[0].clientY;
 
       if (showIntro && delta > 60) finishIntro();
-      if (!showIntro && delta < -60) backToHero();
+      if (!showIntro && delta < -60) {
+        // Only allow scrolling back to hero if at the top of OtherSections
+        if (scrollContainerRef.current && scrollContainerRef.current.scrollTop === 0) {
+          backToHero();
+        }
+      }
       touchStartY.current = null;
     };
 
@@ -87,7 +98,9 @@ export default function Home() {
           exit={{ opacity: 0, y: -40 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
         >
-          <OtherSections />
+          <div ref={scrollContainerRef} className="h-screen overflow-y-auto">
+            <OtherSections />
+          </div>
         </motion.div>
       )}
     </AnimatePresence>
