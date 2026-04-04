@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import IntroSection from "./IntroSection";
 import MainSection from "./components/MainSection";
@@ -6,8 +6,16 @@ import MainSection from "./components/MainSection";
 export default function App() {
   const [showIntro, setShowIntro] = useState(true);
 
+  // Keep body overflow hidden - MainSection handles its own internal scrolling
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
+
   return (
-    <div className="relative h-screen bg-linear-to-b from-[#111318] to-[#0b0d10]">
+    <div className="relative bg-linear-to-b from-[#111318] to-[#0b0d10]">
       {/* Main Page */}
       {!showIntro &&
         <motion.div
@@ -17,7 +25,7 @@ export default function App() {
             duration: 0.9,
             ease: "easeOut"
           }}
-          className="h-full absolute inset-0"
+          className="w-full min-h-screen"
         >
           <MainSection />
         </motion.div>}
