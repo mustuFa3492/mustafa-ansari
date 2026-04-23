@@ -62,7 +62,7 @@ export default function Projects() {
             Featured Projects
           </h2>
           <div className="flex items-center gap-3">
-            <div className="h-1 w-[clamp(2rem,10vw,4rem)] bg-gradient-to-r from-cyan-500 to-transparent" />
+            <div className="h-1 w-[clamp(2rem,10vw,4rem)] bg-linear-to-r from-cyan-500 to-transparent" />
             <p className="text-slate-400 text-[clamp(0.9rem,2.5vw,1.1rem)]">
               Real-world solutions with measurable impact
             </p>
@@ -80,10 +80,10 @@ export default function Projects() {
             <motion.div
               key={project.id}
               variants={itemVariants}
-              className="group relative h-full rounded-xl bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 p-[clamp(1.5rem,4vw,2rem)] hover:border-cyan-500/50 hover:from-white/10 hover:to-white/[0.05] transition-all duration-300 overflow-hidden"
+              className="group relative h-full rounded-xl bg-linear-to-br from-white/5 to-white/2 border border-white/10 p-[clamp(1.5rem,4vw,2rem)] hover:border-cyan-500/50 hover:from-white/10 hover:to-white/5 transition-all duration-300 overflow-hidden"
             >
               {/* Gradient background on hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 to-blue-500/0 group-hover:from-cyan-500/5 group-hover:to-blue-500/5 transition-all duration-300 pointer-events-none" />
+              <div className="absolute inset-0 bg-linear-to-br from-cyan-500/0 to-blue-500/0 group-hover:from-cyan-500/5 group-hover:to-blue-500/5 transition-all duration-300 pointer-events-none" />
 
               <div className="relative z-10 space-y-[clamp(1rem,3vw,1.5rem)] h-full flex flex-col">
                 {/* Title */}
@@ -92,13 +92,13 @@ export default function Projects() {
                 </h3>
 
                 {/* Description */}
-                <p className="text-slate-300 text-[clamp(0.9rem,2vw,0.95rem)] leading-relaxed flex-grow">
+                <p className="text-slate-300 text-[clamp(0.9rem,2vw,0.95rem)] leading-relaxed grow">
                   {project.description}
                 </p>
 
                 {/* Impact Badge */}
                 <div className="flex items-center gap-2">
-                  <div className="h-1 w-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500" />
+                  <div className="h-1 w-2 rounded-full bg-linear-to-r from-cyan-400 to-blue-500" />
                   <p className="text-cyan-400 text-[clamp(0.85rem,2vw,0.9rem)] font-medium">
                     {project.impact}
                   </p>
@@ -127,7 +127,7 @@ export default function Projects() {
                   </a>
                   <a
                     href={project.live}
-                    className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-r from-cyan-500/20 to-blue-500/20 hover:from-cyan-500/30 hover:to-blue-500/30 text-cyan-300 hover:text-cyan-100 transition-all duration-200 text-[clamp(0.85rem,2vw,0.9rem)]"
+                    className="flex items-center gap-2 px-3 py-2 rounded-lg bg-linear-to-r from-cyan-500/20 to-blue-500/20 hover:from-cyan-500/30 hover:to-blue-500/30 text-cyan-300 hover:text-cyan-100 transition-all duration-200 text-[clamp(0.85rem,2vw,0.9rem)]"
                   >
                     <ExternalLink size={16} />
                     Live
